@@ -1,10 +1,17 @@
-import CheckBalance from "@/components/CheckBalance";
+"use client";
+import { Appbar } from "@/components/Appbar";
+import { signIn, signOut, useSession } from "next-auth/react";
 
 export default function Home() {
-  return (
-    <div>
-      <h1 className="text-2xl">Hi there</h1>
-      <CheckBalance/>
-    </div>
-  );
+    const { data: session } = useSession();
+
+    return (
+        <>
+            <Appbar
+                user={session?.user}
+                onSignin={() => signIn()}
+                onSignout={() => signOut()}
+            />
+        </>
+    );
 }
